@@ -19,11 +19,13 @@ jobs:
         with:
           python-version: '3.13'
 
+      - uses: extractions/setup-just@v2
+
       - name: Starting the process component
         run: echo OS Starting, Welcome to MezoOS...
 
       - name: Run the process component
-        run: just run-process 
+        run: just run-process
 
       - name: Process Component Close
         run: echo Process Component ShutDown
