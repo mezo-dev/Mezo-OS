@@ -23,7 +23,7 @@ jobs:
         run: echo OS Starting, Welcome to MezoOS...
 
       - name: Run the process component
-        run: python3 -m process 
+        run: cd kernel && python3 -m process 
 
       - name: Process Component Close
         run: echo Process Component ShutDown
