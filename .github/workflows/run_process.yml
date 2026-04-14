@@ -15,11 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
       - name: Starting the process component
-        run: echo OS Statring, Welcom to MezoOS...
+        run: echo OS Starting, Welcome to MezoOS...
 
       - name: Run the process component
-        run: python -m process
+        run: python -m kernel.process
 
       - name: Process Component Close
         run: echo Process Component ShutDown
