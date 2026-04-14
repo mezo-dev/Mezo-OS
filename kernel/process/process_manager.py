@@ -1,5 +1,5 @@
 from .process import Process
-
+from .validator import ProcessValidator
 
 class ProcessManager:
     def __init__(self):
@@ -7,13 +7,13 @@ class ProcessManager:
         self.next_pid = 1
     
     def create_process(self, name: str) -> Process:
-        for p in self.processes: # move it to validator as well 
-            if p.name == name:
-                raise NameError("Process name already exsting!")
-        
+        process_validator = ProcessValidator(name=name, processes=self.processes)
+        process_validator.validate()
+
         process = Process(pid=self.next_pid, name=name)
         self.processes.append(process)
         self.next_pid += 1
+
         return process
     
     def list_processes(self) -> list[Process]:

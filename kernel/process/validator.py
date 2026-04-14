@@ -1,18 +1,40 @@
-
+from .process import Process
 
 
 class ProcessValidator:
-    def validate_process_name(name: str): # split these methods into small ones
-        if not isinstance(name, str):
-            raise ValueError("Process name must be string!")
-        
-        if len(name) >= 100:
+    FORBIDDEN_CHARACTERS = {"@", "$", "!", "%", "^", "&", "*"}
+    MAX_NAME_LENGTH = 100
+
+    def __init__(self, *, name: str, processes: list[Process]):
+        self.name = name
+        self.processes = processes
+
+    def validate_name_type(self):
+        if not isinstance(self.name, str):
+            raise TypeError("Process name must be a string.")
+
+    def validate_name_length(self):
+        if len(self.name) > self.MAX_NAME_LENGTH:
             raise ValueError(
-                "Process name must be less then 100 character"
+                f"Process name must be less than {self.MAX_NAME_LENGTH} characters."
             )
-        
-        invalid_names = ["", " ",  "@", "$", "!", "%", "^", "&", "*"]
-        if name in invalid_names:
-            raise NameError(
-                f"these characters are not allowed, {invalid_names}"
+        if not self.name.strip():
+            raise ValueError("Process name cannot be empty or whitespace only.")
+
+    def validate_forbidden_characters(self):
+        found = [c for c in self.name if c in self.FORBIDDEN_CHARACTERS]
+        if found:
+            raise ValueError(
+                f"Process name contains forbidden characters: {found}."
             )
+
+    def validate_unique_name(self):
+        if any(p.name == self.name for p in self.processes):
+            raise ValueError(f"Process name '{self.name}' already exists.")
+
+    def validate(self):
+        self.validate_name_type()
+        self.validate_name_length()
+        self.validate_forbidden_characters()
+        self.validate_unique_name()
+
