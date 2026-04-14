@@ -1,10 +1,15 @@
 from .process import Process
 from .validator import ProcessValidator
+from ..logger import KernelLogger
+
+
 
 class ProcessManager:
-    def __init__(self):
+    def __init__(self, logger: KernelLogger | None = None):
+        self.logger = logger or KernelLogger()
         self.processes = []
         self.next_pid = 1
+
     
     def create_process(self, name: str) -> Process:
         process_validator = ProcessValidator(name=name, processes=self.processes)
@@ -14,6 +19,11 @@ class ProcessManager:
         self.processes.append(process)
         self.next_pid += 1
 
+        self.logger.create_log(
+            title="Created Process...",
+            message=f"Process #{process.pid} '{process.name}' has been created.",
+            level="INFO"
+        )
         return process
     
     def list_processes(self) -> list[Process]:

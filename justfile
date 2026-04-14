@@ -1,2 +1,3 @@
 run-process:
-    cd kernel && python3 -m process
+    python3 -m kernel.process
+
