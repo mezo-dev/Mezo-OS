@@ -33,6 +33,7 @@ class KernelLogger:
     def get_logs(self) -> list[dict]:
         return self.logs
 
+    # get log by title and add id for each object
 
 # if __name__ == "__main__":
 #     test = KernelLogger()
