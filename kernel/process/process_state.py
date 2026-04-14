@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ProcessState(Enum, str):
+class ProcessState(str, Enum):
     NEW = "NEW"
     READY = "READY"
     RUNNING = "RUNNING"
