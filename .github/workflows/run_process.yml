@@ -1,0 +1,32 @@
+name: Starting The Process Component
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: extractions/setup-just@v2
+
+      - name: Starting the process component
+        run: echo OS Starting, Welcome to MezoOS...
+
+      - name: Run the process component
+        run: just run-process
+
+      - name: Process Component Close
+        run: echo Process Component ShutDown
+        
