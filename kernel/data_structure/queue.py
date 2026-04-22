@@ -15,7 +15,7 @@ class Queue:
         self.size = 0
         self.logger = logger
     
-    def enqueue(self, item: Process) -> None:
+    def enqueue(self, item) -> None:
         new_node = Node(item)
 
         if self.tail is None:
