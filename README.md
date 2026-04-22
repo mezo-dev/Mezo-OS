@@ -1,30 +1,33 @@
-## Mezo-OS | Kernel Simulation
-A lightweight operating system simulation that models core kernel components such as process scheduling, memory management, and system calls to demonstrate how an OS manages hardware and user programs.
+## 🧠 Mezo-OS | Kernel Simulation
 
-| ID | Component        | Description                                                                        | Core Concept                            |
-| ---- | --------------------- | ---------------------------------------------------------------------------------- | --------------------------------------- |
-| 1    | Kernel Skeleton       | Create the basic structure of the kernel with modules (process, memory, scheduler) | Modular Design & Separation of Concerns |
-| 2    | Process Model         | Represent a process with attributes (PID, state, priority)                         | Process Abstraction                     |
-| 3    | Process Queue         | Implement a queue to hold processes waiting for execution                          | Queue (Data Structure)                  |
-| 4    | Basic Scheduler       | Run processes one by one using FIFO                                                | Scheduling Algorithms (FIFO)            |
-| 5    | Round Robin Scheduler | Add time-slicing and process rotation                                              | Circular Queue & Time Sharing           |
-| 6    | Process States        | Add states (Ready, Running, Waiting, Terminated)                                   | Finite State Machine                    |
-| 7    | Context Switching     | Simulate switching between processes                                               | Context Switching Concept               |
-| 8    | System Call Interface | Create a layer for user programs to request kernel services                        | User Mode vs Kernel Mode                |
-| 9    | Memory Model          | Simulate memory as an array or blocks                                              | Memory Abstraction                      |
-| 10   | Memory Allocation     | Implement allocation (First Fit / Best Fit)                                        | Greedy Algorithms                       |
-| 11   | Memory Deallocation   | Free memory and handle fragmentation                                               | Memory Management                       |
-| 12   | Paging Simulation     | Divide memory into pages and assign to processes                                   | Paging Concept                          |
-| 13   | Interrupt System      | Simulate interrupts (timer, I/O)                                                   | Interrupt Handling                      |
-| 14   | Priority Scheduling   | Add priorities to processes and schedule accordingly                               | Heap / Priority Queue                   |
-| 15   | Starvation Handling   | Prevent low-priority processes from being ignored                                  | Aging Algorithm                         |
-| 16   | File System Model     | Simulate files and directories                                                     | Tree Data Structure                     |
-| 17   | File Operations       | Implement create, read, write, delete                                              | File System Basics                      |
-| 18   | Device Manager        | Simulate I/O devices (disk, keyboard)                                              | Abstraction Layer                       |
-| 19   | I/O Scheduling        | Manage device requests efficiently                                                 | Scheduling (FCFS, SSTF)                 |
-| 20   | Logging System        | Track kernel events and actions                                                    | Observer Pattern                        |
-| 21   | Error Handling        | Handle invalid operations safely                                                   | Defensive Programming                   |
-| 22   | Configuration System  | Manage kernel settings dynamically                                                 | Singleton Pattern                       |
-| 23   | Performance Metrics   | Measure execution time, wait time, throughput                                      | Algorithm Analysis                      |
-| 24   | Optimization Phase    | Improve scheduling, memory, and structures                                         | Time & Space Complexity                 |
-| 25   | Final Integration     | Combine all modules into a working mini-kernel                                     | System Design                           |
+**Mezo-OS** is an educational project that simulates the core behavior of an operating system kernel.  
+The goal is to understand how an OS manages processes internally—starting from creation to execution—by building each component step by step.
+
+At its current stage, the project focuses on **process management and basic CPU scheduling**, providing a simplified but realistic view of how a kernel operates.
+
+---
+
+## 🚀 What Has Been Built So Far
+
+The foundation of the kernel has been designed with a modular structure, separating responsibilities into clear components such as the process manager, scheduler, and queue system. This makes the system easier to extend and maintain as more features are added.
+
+A **Process Manager** has been implemented to handle the creation and tracking of processes. Each process is assigned a unique PID and initialized with a basic state, allowing us to simulate a real process lifecycle in a simplified way.
+
+To manage execution order, a **custom queue data structure** was built from scratch using a linked list. This ensures efficient operations (O(1) enqueue and dequeue) and avoids relying on built-in abstractions, helping to better understand how data structures work internally.
+
+On top of that, a **FIFO (First-In, First-Out) scheduler** was implemented. It simulates how the CPU picks processes from the queue and executes them sequentially. Each process transitions through basic states such as `NEW`, `RUNNING`, and `TERMINATED`, mimicking real OS behavior.
+
+The system also includes a **simple kernel logging mechanism** to track events like process creation, execution, and errors. Additionally, **basic input validation and custom exceptions** are used to ensure the system behaves predictably and safely when handling invalid data.
+
+---
+
+## 🧩 Summary of Current Components
+
+| Component        | Description |
+|------------------|------------|
+| Kernel Structure | Modular design separating core responsibilities |
+| Process Manager  | Handles process creation, PID assignment, and storage |
+| Process Queue    | Custom linked-list queue for managing execution order |
+| FIFO Scheduler   | Executes processes sequentially based on arrival order |
+| Logging System   | Tracks kernel events and actions |
+| Validation Layer | Ensures safe input handling with custom exceptions |
