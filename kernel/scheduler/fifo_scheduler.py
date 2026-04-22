@@ -23,7 +23,7 @@ class FIFOScheduler:
     def run(self):
         self.logger.create_log(
             title="FIFO Scheduler Started",
-            description="The FIFO Scheduler has started executing processes.",
+            message="The FIFO Scheduler has started executing processes.",
             level="INFO"
         )
 
@@ -36,7 +36,7 @@ class FIFOScheduler:
             self._execute(process)
         self.logger.create_log(
             title="FIFO Scheduler Finished",
-            description="The FIFO Scheduler has finished executing all processes.",
+            message="The FIFO Scheduler has finished executing all processes.",
             level="INFO"
         )
     
@@ -44,7 +44,7 @@ class FIFOScheduler:
         process.state = ProcessState.RUNNING
         self.logger.create_log(
             title=f"Process {process.pid} Running",
-            description=f"Process {process.pid} ({process.name}) is now running.",
+            message=f"Process {process.pid} ({process.name}) is now running.",
             level="INFO"
         )
 
@@ -53,6 +53,6 @@ class FIFOScheduler:
         process.state = ProcessState.TERMINATED
         self.logger.create_log(
             title=f"Process {process.pid} Terminated",
-            description=f"Process {process.pid} ({process.name}) has terminated.",
+            message=f"Process {process.pid} ({process.name}) has terminated.",
             level="INFO"
         )
