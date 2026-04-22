@@ -33,3 +33,35 @@ class Queue:
                 level="INFO",
             )
 
+    def dequeue(self):
+        if self.is_empty():
+            if self.logger:
+                self.logger.create_log(
+                    title="Queue is empty",
+                    message="Attempted to dequeue from an empty queue.",
+                    level="WARNING",
+                )
+            return None
+        
+        removed = self.head
+        self.head = self.head.next
+
+        self.size -= 1 
+        if self.logger:
+            self.logger.create_log(
+                title=f"Dequeue: PID={removed.data.pid}",
+                message=f"Process {removed.data.name} (PID={removed.data.pid}) has been dequeued.",
+                level="INFO",
+            )
+        return removed.data
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        return self.head.data
+
+    def is_empty(self) -> bool:
+        return bool(self.size == 0)
+    
+    def __len__(self):
+        return self.size
