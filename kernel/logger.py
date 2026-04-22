@@ -10,7 +10,7 @@ class Colors:
 
 LEVEL_COLORS = {
     "INFO": Colors.GREEN,
-    "WARN": Colors.YELLOW,
+    "WARNING": Colors.YELLOW,
     "ERROR": Colors.RED,
 }
 
