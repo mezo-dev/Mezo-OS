@@ -12,7 +12,7 @@ from ..process.process_state import ProcessState
 from ..process.process_queue import ProcessQueue
 from ..logger import KernelLogger
 from ..process import Process
-
+import time
 
 class FIFOScheduler:
     def __init__(self, process_queue: ProcessQueue, logger: KernelLogger):
@@ -42,12 +42,13 @@ class FIFOScheduler:
     
     def _execute(self, process: Process):
         process.state = ProcessState.RUNNING
+        process.execution_time = 1
         self.logger.create_log(
             title=f"Process {process.pid} Running",
             message=f"Process {process.pid} ({process.name}) is now running.",
             level="INFO"
         )
-
+        time.sleep(process.execution_time)
         print(f"Executing Process {process.pid} ({process.name})...")
 
         process.state = ProcessState.TERMINATED
