@@ -41,15 +41,25 @@ class FIFOScheduler:
         )
     
     def _execute(self, process: Process):
+        if process.state != ProcessState.NEW:
+            self.logger.create_log(
+                title=f"Process {process.pid} Skipped",
+                message=f"Process {process.pid} ({process.name}) skipped — state is {process.state.name}, expected NEW.",
+                level="WARNING"
+            )
+            return
+
+        process.state = ProcessState.READY
+
         process.state = ProcessState.RUNNING
-        process.execution_time = 1
+        process.execution_time = 0.5
         self.logger.create_log(
             title=f"Process {process.pid} Running",
             message=f"Process {process.pid} ({process.name}) is now running.",
             level="INFO"
         )
         time.sleep(process.execution_time)
-        print(f"Executing Process {process.pid} ({process.name})...")
+        print(f"Executing Process {process.pid} ({process.name})...({process.execution_time} ms)")
 
         process.state = ProcessState.TERMINATED
         self.logger.create_log(
