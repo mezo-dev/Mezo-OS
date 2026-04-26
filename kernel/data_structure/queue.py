@@ -1,7 +1,8 @@
 from typing import Any
 
 from ..logger import KernelLogger
-from ..process import Process
+
+
 class Node:
     def __init__(self, data: Any):
         self.data = data
@@ -14,7 +15,7 @@ class Queue:
         self.tail = None
         self.size = 0
         self.logger = logger
-    
+
     def enqueue(self, item) -> None:
         new_node = Node(item)
 
@@ -23,7 +24,7 @@ class Queue:
         else:
             self.tail.next = new_node
             self.tail = new_node
-        
+
         self.size += 1
 
         if self.logger:
@@ -42,11 +43,11 @@ class Queue:
                     level="WARNING",
                 )
             return None
-        
+
         removed = self.head
         self.head = self.head.next
 
-        self.size -= 1 
+        self.size -= 1
         if self.logger:
             self.logger.create_log(
                 title=f"Dequeue: PID={removed.data.pid}",
@@ -62,6 +63,6 @@ class Queue:
 
     def is_empty(self) -> bool:
         return bool(self.size == 0)
-    
+
     def __len__(self):
         return self.size

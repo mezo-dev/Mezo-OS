@@ -1,12 +1,11 @@
-from pprint import pprint
 
-from ..scheduler.fcfs_scheduler import FCFSScheduler
-
-from ..process.process_queue import ProcessQueue
-from .process_manager import ProcessManager
 from ..logger import KernelLogger
+from ..process.process_queue import ProcessQueue
+from ..scheduler.fcfs_scheduler import FCFSScheduler
+from .process_manager import ProcessManager
 
 logger = KernelLogger()
+
 
 def main() -> None:
     pm = ProcessManager(logger)

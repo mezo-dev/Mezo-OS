@@ -1,5 +1,6 @@
-from .process import Process
 from .exceptions import InvalidProcessNameError, ProcessAlreadyExistsError
+from .process import Process
+
 
 class ProcessValidator:
     FORBIDDEN_CHARACTERS = {"@", "$", "!", "%", "^", "&", "*"}
@@ -19,7 +20,9 @@ class ProcessValidator:
                 f"Process name must be less than {self.MAX_NAME_LENGTH} characters."
             )
         if not self.name.strip():
-            raise InvalidProcessNameError("Process name cannot be empty or whitespace only.")
+            raise InvalidProcessNameError(
+                "Process name cannot be empty or whitespace only."
+            )
 
     def validate_forbidden_characters(self):
         found = [c for c in self.name if c in self.FORBIDDEN_CHARACTERS]
@@ -30,11 +33,12 @@ class ProcessValidator:
 
     def validate_unique_name(self):
         if any(p.name == self.name for p in self.processes):
-            raise ProcessAlreadyExistsError(f"Process name '{self.name}' already exists.")
+            raise ProcessAlreadyExistsError(
+                f"Process name '{self.name}' already exists."
+            )
 
     def validate(self):
         self.validate_name_type()
         self.validate_name_length()
         self.validate_forbidden_characters()
         self.validate_unique_name()
-
