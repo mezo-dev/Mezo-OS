@@ -14,7 +14,7 @@ from ..logger import KernelLogger
 from ..process import Process
 import time
 
-class FIFOScheduler:
+class FCFSScheduler:
     def __init__(self, process_queue: ProcessQueue, logger: KernelLogger):
         self.process_queue = process_queue
         self.logger = logger

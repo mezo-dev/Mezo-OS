@@ -1,6 +1,6 @@
 from pprint import pprint
 
-from ..scheduler.fifo_scheduler import FIFOScheduler
+from ..scheduler.fcfs_scheduler import FCFSScheduler
 
 from ..process.process_queue import ProcessQueue
 from .process_manager import ProcessManager
@@ -22,7 +22,7 @@ def main() -> None:
     queue.enqueue(p3)
     queue.enqueue(p4)
 
-    scheduler = FIFOScheduler(queue, logger)
+    scheduler = FCFSScheduler(queue, logger)
     scheduler.run()
 
 
