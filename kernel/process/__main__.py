@@ -1,12 +1,11 @@
-from pprint import pprint
 
-from ..scheduler.fifo_scheduler import FIFOScheduler
-
-from ..process.process_queue import ProcessQueue
-from .process_manager import ProcessManager
 from ..logger import KernelLogger
-
+from ..process.process_queue import ProcessQueue
+from ..scheduler.fcfs_scheduler import FCFSScheduler
+from .process_manager import ProcessManager
+from ..scheduler.robin_scheduler import RoundRobinScheduler
 logger = KernelLogger()
+
 
 def main() -> None:
     pm = ProcessManager(logger)
@@ -22,7 +21,10 @@ def main() -> None:
     queue.enqueue(p3)
     queue.enqueue(p4)
 
-    scheduler = FIFOScheduler(queue, logger)
+    scheduler = FCFSScheduler(queue, logger)
+    scheduler.run()
+
+    scheduler = RoundRobinScheduler(queue, logger)
     scheduler.run()
 
 

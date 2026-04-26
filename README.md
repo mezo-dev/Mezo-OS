@@ -1,6 +1,6 @@
 ## 🧠 Mezo-OS | Kernel Simulation
 
-**Mezo-OS** is an educational project that simulates the core behavior of an operating system kernel.  
+**Mezo-OS** is an educational project that simulates the core behavior of an operating system kernel.
 The goal is to understand how an OS manages processes internally—starting from creation to execution—by building each component step by step.
 
 At its current stage, the project focuses on **process management and basic CPU scheduling**, providing a simplified but realistic view of how a kernel operates.

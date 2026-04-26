@@ -1,5 +1,5 @@
 """
-Steps: 
+Steps:
     - Pull process from queue
     - Mark it as RUNNING
     - Simulate execution
@@ -7,45 +7,45 @@ Steps:
     - Move to next process
 """
 
-
-from ..process.process_state import ProcessState
-from ..process.process_queue import ProcessQueue
-from ..logger import KernelLogger
-from ..process import Process
 import time
 
-class FIFOScheduler:
+from ..logger import KernelLogger
+from ..process import Process
+from ..process.process_queue import ProcessQueue
+from ..process.process_state import ProcessState
+
+
+class FCFSScheduler:
     def __init__(self, process_queue: ProcessQueue, logger: KernelLogger):
         self.process_queue = process_queue
         self.logger = logger
-
 
     def run(self):
         self.logger.create_log(
             title="FIFO Scheduler Started",
             message="The FIFO Scheduler has started executing processes.",
-            level="INFO"
+            level="INFO",
         )
 
         while not self.process_queue.is_empty():
             process = self.process_queue.dequeue()
 
             if process is None:
-                continue 
-                
+                continue
+
             self._execute(process)
         self.logger.create_log(
             title="FIFO Scheduler Finished",
             message="The FIFO Scheduler has finished executing all processes.",
-            level="INFO"
+            level="INFO",
         )
-    
+
     def _execute(self, process: Process):
         if process.state != ProcessState.NEW:
             self.logger.create_log(
                 title=f"Process {process.pid} Skipped",
                 message=f"Process {process.pid} ({process.name}) skipped — state is {process.state.name}, expected NEW.",
-                level="WARNING"
+                level="WARNING",
             )
             return
 
@@ -56,14 +56,16 @@ class FIFOScheduler:
         self.logger.create_log(
             title=f"Process {process.pid} Running",
             message=f"Process {process.pid} ({process.name}) is now running.",
-            level="INFO"
+            level="INFO",
         )
         time.sleep(process.execution_time)
-        print(f"Executing Process {process.pid} ({process.name})...({process.execution_time} ms)")
+        print(
+            f"Executing Process {process.pid} ({process.name})...({process.execution_time} ms)"
+        )
 
         process.state = ProcessState.TERMINATED
         self.logger.create_log(
             title=f"Process {process.pid} Terminated",
             message=f"Process {process.pid} ({process.name}) has terminated.",
-            level="INFO"
+            level="INFO",
         )
