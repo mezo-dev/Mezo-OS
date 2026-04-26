@@ -1,6 +1,7 @@
 
 
 
+from ..process.process_state import ProcessState
 from ..process.process_queue import ProcessQueue
 from ..logger import KernelLogger
 from ..process import Process
@@ -34,4 +35,35 @@ class RoundRobinScheduler:
             )
         
     def _execute(self, process: Process):
-        pass
+        process.state = ProcessState.RUNNING
+        self.logger.create_log(
+            title="Process Start Executing",
+            message=f"[Time {self.time}], Running PID [{process.pid}], Remaining Time: {process.remaining_time}",
+            level="INFO"
+        )
+
+        executed_time = process.run(self.quantum)
+        self.time += executed_time
+
+        self.logger.create_log(
+            title=f"Execution Process {process.name} For {executed_time} Time Units",
+            message=f"[Time {self.time}], Executed PID [{process.pid}] for {executed_time} time units, Remaining Time: {process.remaining_time}",
+            level="INFO"
+        )
+
+        if process.is_finished():
+            process.state = ProcessState.TERMINATED
+            self.logger.create_log(
+                title=f"Process {process.name} Terminated",
+                message=f"[Time {self.time}], Process PID [{process.pid}] has finished execution and is terminated.",
+                level="INFO"
+            )
+        else:
+            process.state = ProcessState.READY
+            self.queue.enqueue(process)
+            self.logger.create_log(
+                title=f"Process {process.name} Re-queued",
+                message=f"[Time {self.time}], Process PID [{process.pid}] is re-queued with remaining time {process.remaining_time}.",
+                level="INFO"
+            )
+

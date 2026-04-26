@@ -3,7 +3,7 @@ from ..logger import KernelLogger
 from ..process.process_queue import ProcessQueue
 from ..scheduler.fcfs_scheduler import FCFSScheduler
 from .process_manager import ProcessManager
-
+from ..scheduler.robin_scheduler import RoundRobinScheduler
 logger = KernelLogger()
 
 
@@ -22,6 +22,9 @@ def main() -> None:
     queue.enqueue(p4)
 
     scheduler = FCFSScheduler(queue, logger)
+    scheduler.run()
+
+    scheduler = RoundRobinScheduler(queue, logger)
     scheduler.run()
 
 
