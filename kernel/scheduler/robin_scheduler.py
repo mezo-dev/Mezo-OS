@@ -5,9 +5,10 @@ from ..process.process_state import ProcessState
 from ..process.process_queue import ProcessQueue
 from ..logger import KernelLogger
 from ..process import Process
+import time
  
 class RoundRobinScheduler:
-    def __init__(self, process_queue:ProcessQueue, logger: KernelLogger, quantum: int = 2):
+    def __init__(self, process_queue: ProcessQueue, logger: KernelLogger, quantum: int = 2):
         self.queue = process_queue
         self.quantum = quantum
         self.logger = logger
@@ -22,12 +23,22 @@ class RoundRobinScheduler:
         )
 
         while not self.queue.is_empty():
-            # next_process = self.queue.peek()
+            next_process = self.queue.peek()
+            previous_process = None  
+
+            self.context_process(
+                current_process=previous_process,
+                next_process=next_process
+            )
+
             process = self.queue.dequeue()
 
             if process is None:
                 continue
+
             self._execute(process)
+
+            previous_process = process
 
             self.logger.create_log(
                 title="Process Executed",
@@ -68,7 +79,7 @@ class RoundRobinScheduler:
                 level="INFO"
             )
 
-    def context_process(self, current_process: Process, next_process: Process):
+    def context_process(self, *, current_process: Process, next_process: Process):
 
         if current_process:
             self.logger.create_log(
@@ -90,3 +101,5 @@ class RoundRobinScheduler:
                 message=f"[Time {self.time}] Loading context of PID={next_process.pid} to CPU.",
                 level="INFO"
             )
+        
+        time.sleep(0.5)  # Simulate context switch delay
