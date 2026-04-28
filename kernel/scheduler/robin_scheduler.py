@@ -22,6 +22,7 @@ class RoundRobinScheduler:
         )
 
         while not self.queue.is_empty():
+            # next_process = self.queue.peek()
             process = self.queue.dequeue()
 
             if process is None:
@@ -67,3 +68,25 @@ class RoundRobinScheduler:
                 level="INFO"
             )
 
+    def context_process(self, current_process: Process, next_process: Process):
+
+        if current_process:
+            self.logger.create_log(
+                title="Context Switch",
+                message=f"[Time {self.time}] Saving CPU of PID={current_process.pid}\n(Remaining={current_process.remaining_time}).",
+                level="INFO"
+            )
+
+        if current_process and next_process:
+            self.logger.create_log(
+                title="Context Switch",
+                message=f"[Time {self.time}] Switching CPU from PID={current_process.pid} to PID={next_process.pid}.",
+                level="INFO"
+            )
+        
+        if next_process:
+            self.logger.create_log(
+                title="Context Switch",
+                message=f"[Time {self.time}] Loading context of PID={next_process.pid} to CPU.",
+                level="INFO"
+            )
