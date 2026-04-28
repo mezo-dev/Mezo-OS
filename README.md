@@ -1,33 +1,39 @@
 ## 🧠 Mezo-OS | Kernel Simulation
 
-**Mezo-OS** is an educational project that simulates the core behavior of an operating system kernel.
-The goal is to understand how an OS manages processes internally—starting from creation to execution—by building each component step by step.
+**Mezo-OS** is an educational project that simulates how an operating system kernel works internally.
+The goal is not just to build features, but to understand *how a kernel thinks*—from managing processes to sharing CPU time between them.
 
-At its current stage, the project focuses on **process management and basic CPU scheduling**, providing a simplified but realistic view of how a kernel operates.
-
----
-
-## 🚀 What Has Been Built So Far
-
-The foundation of the kernel has been designed with a modular structure, separating responsibilities into clear components such as the process manager, scheduler, and queue system. This makes the system easier to extend and maintain as more features are added.
-
-A **Process Manager** has been implemented to handle the creation and tracking of processes. Each process is assigned a unique PID and initialized with a basic state, allowing us to simulate a real process lifecycle in a simplified way.
-
-To manage execution order, a **custom queue data structure** was built from scratch using a linked list. This ensures efficient operations (O(1) enqueue and dequeue) and avoids relying on built-in abstractions, helping to better understand how data structures work internally.
-
-On top of that, a **FIFO (First-In, First-Out) scheduler** was implemented. It simulates how the CPU picks processes from the queue and executes them sequentially. Each process transitions through basic states such as `NEW`, `RUNNING`, and `TERMINATED`, mimicking real OS behavior.
-
-The system also includes a **simple kernel logging mechanism** to track events like process creation, execution, and errors. Additionally, **basic input validation and custom exceptions** are used to ensure the system behaves predictably and safely when handling invalid data.
+At this stage, the project focuses on **process management and CPU scheduling**, evolving from simple execution to realistic multitasking behavior.
 
 ---
 
-## 🧩 Summary of Current Components
+## What Has Been Built So Far
 
-| Component        | Description |
-|------------------|------------|
-| Kernel Structure | Modular design separating core responsibilities |
-| Process Manager  | Handles process creation, PID assignment, and storage |
-| Process Queue    | Custom linked-list queue for managing execution order |
-| FIFO Scheduler   | Executes processes sequentially based on arrival order |
-| Logging System   | Tracks kernel events and actions |
-| Validation Layer | Ensures safe input handling with custom exceptions |
+The kernel is designed using a modular architecture, separating responsibilities into components such as the process manager, scheduler, and queue system. This keeps the system clean, scalable, and easy to extend.
+
+A **Process Manager** is responsible for creating processes, assigning unique PIDs, and tracking their lifecycle. Each process now includes execution metadata such as total execution time and remaining time, allowing partial execution and resumption.
+
+To control execution order, a **custom queue data structure** was implemented using a linked list. This ensures efficient enqueue and dequeue operations (O(1)) and provides a deeper understanding of how low-level data structures work.
+
+The scheduling system has evolved into a **Round Robin Scheduler**, enabling true multitasking simulation. Instead of running processes to completion, each process receives a fixed time slice (quantum), after which it is either re-queued or terminated. This introduces fairness and prevents any single process from monopolizing the CPU.
+
+To make the simulation more realistic, **context switching** has been introduced. The system now explicitly simulates saving the current process state and loading the next one, making CPU transitions visible through logs. A small delay is also added to represent switching overhead.
+
+A **kernel logging system** is used throughout the project to trace execution flow, including process creation, scheduling decisions, and context switches. This makes debugging and understanding system behavior much easier.
+
+Basic **validation and error handling** are also in place to ensure stability when dealing with invalid input or incorrect operations.
+
+---
+
+## Summary of Current Components
+
+| Component             | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| Kernel Structure      | Modular design with clear separation of concerns               |
+| Process Manager       | Creates and manages processes with execution metadata          |
+| Process Model         | Supports execution time, remaining time, and state transitions |
+| Process Queue         | Custom linked-list queue (O(1) operations)                     |
+| Round Robin Scheduler | Time-sliced CPU scheduling with fair process rotation          |
+| Context Switching     | Simulates saving/loading process state between executions      |
+| Logging System        | Tracks kernel events and execution flow                        |
+| Validation Layer      | Handles invalid input with safe checks and exceptions          |

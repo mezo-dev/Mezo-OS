@@ -5,6 +5,7 @@ class Colors:
     RED = "\033[31m"
     GREEN = "\033[32m"
     YELLOW = "\033[33m"
+    WHITE = "\033[37m"
     RESET = "\033[0m"
 
 
@@ -30,12 +31,11 @@ class KernelLogger:
             }
         )
         color = LEVEL_COLORS.get(level, Colors.GREEN)
-        print(f"{color}[{timestamp}] {level} {title}: {message}{Colors.RESET}")
+        print(f"{color}[{timestamp}] {level} {Colors.WHITE}{title}{color}: {message}{Colors.RESET}")
 
     def get_logs(self) -> list[dict]:
         return self.logs
 
-    # get log by title and add id for each object
 
 
 # if __name__ == "__main__":

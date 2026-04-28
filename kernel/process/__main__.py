@@ -21,8 +21,8 @@ def main() -> None:
     queue.enqueue(p3)
     queue.enqueue(p4)
 
-    scheduler = FCFSScheduler(queue, logger)
-    scheduler.run()
+    # scheduler = FCFSScheduler(queue, logger)
+    # scheduler.run()
 
     scheduler = RoundRobinScheduler(queue, logger)
     scheduler.run()
