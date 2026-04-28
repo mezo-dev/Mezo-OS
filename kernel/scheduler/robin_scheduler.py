@@ -46,7 +46,7 @@ class RoundRobinScheduler:
         self.time += executed_time
 
         self.logger.create_log(
-            title=f"Execution Process {process.name} For {executed_time} Time Units",
+            title=f"Execution Process ({process.pid} | {process.name}) For {executed_time} Time Units",
             message=f"[Time {self.time}], Executed PID [{process.pid}] for {executed_time} time units, Remaining Time: {process.remaining_time}",
             level="INFO"
         )
