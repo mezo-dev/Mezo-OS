@@ -2,7 +2,7 @@ from .process_state import ProcessState
 
 
 class Process:
-    def __init__(self, pid: int, name: str, execution_time: int = 0.5):
+    def __init__(self, pid: int, name: str, execution_time: int = 5):
         self.pid = pid
         self.name = name
         self.state = ProcessState.NEW
